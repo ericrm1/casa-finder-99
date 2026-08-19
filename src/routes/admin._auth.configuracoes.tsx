@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useAdminSession } from "@/features/auth/useAdminSession";
 import { supabase } from "@/integrations/supabase/client";
 import { agency } from "@/lib/agency";
-import { formatDateTime } from "@/lib/format";
+import { formatDate } from "@/lib/format";
 
 export const Route = createFileRoute("/admin/_auth/configuracoes")({
   head: () => ({
@@ -81,7 +81,7 @@ function SettingsPage() {
                   <div className="flex flex-wrap justify-between gap-2">
                     <p className="font-medium">{lead.name}</p>
                     <p className="text-xs text-muted-foreground">
-                      {formatDateTime(lead.created_at)}
+                      {formatDate(lead.created_at)}
                     </p>
                   </div>
                   <p className="text-sm text-muted-foreground">

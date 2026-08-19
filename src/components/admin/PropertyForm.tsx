@@ -266,7 +266,7 @@ export function PropertyForm({ property, submitLabel, onSubmit, isSubmitting }: 
             render={({ field }) => (
               <FormItem className="flex items-center gap-3 space-y-0">
                 <FormControl>
-                  <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                  <Checkbox checked={field.value ?? false} onCheckedChange={field.onChange} />
                 </FormControl>
                 <FormLabel className="font-normal">
                   Exibir o endereço completo no site público
