@@ -11,6 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAuthRouteImport } from './routes/admin._auth'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as ImoveisIndexRouteImport } from './routes/imoveis.index'
 import { Route as ImoveisSlugRouteImport } from './routes/imoveis.$slug'
 
@@ -22,6 +25,21 @@ const IndexRoute = IndexRouteImport.update({
 const ContatoRoute = ContatoRouteImport.update({
   id: '/contato',
   path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminAuthRoute = AdminAuthRouteImport.update({
+  id: '/admin/_auth',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImoveisIndexRoute = ImoveisIndexRouteImport.update({
@@ -38,12 +56,17 @@ const ImoveisSlugRoute = ImoveisSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/admin': typeof AdminAuthRoute
+  '/admin/login': typeof AdminLoginRoute
   '/imoveis/$slug': typeof ImoveisSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/imoveis/': typeof ImoveisIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/login': typeof AdminLoginRoute
   '/imoveis/$slug': typeof ImoveisSlugRoute
   '/imoveis': typeof ImoveisIndexRoute
 }
@@ -51,21 +74,43 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/admin/_auth': typeof AdminAuthRoute
+  '/admin/login': typeof AdminLoginRoute
   '/imoveis/$slug': typeof ImoveisSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/imoveis/': typeof ImoveisIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contato' | '/imoveis/$slug' | '/imoveis/'
+  fullPaths:
+    | '/'
+    | '/contato'
+    | '/admin'
+    | '/admin/login'
+    | '/imoveis/$slug'
+    | '/admin/'
+    | '/imoveis/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contato' | '/imoveis/$slug' | '/imoveis'
-  id: '__root__' | '/' | '/contato' | '/imoveis/$slug' | '/imoveis/'
+  to:
+    '/' | '/contato' | '/admin' | '/admin/login' | '/imoveis/$slug' | '/imoveis'
+  id:
+    | '__root__'
+    | '/'
+    | '/contato'
+    | '/admin/_auth'
+    | '/admin/login'
+    | '/imoveis/$slug'
+    | '/admin/'
+    | '/imoveis/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContatoRoute: typeof ContatoRoute
+  AdminAuthRoute: typeof AdminAuthRoute
+  AdminLoginRoute: typeof AdminLoginRoute
   ImoveisSlugRoute: typeof ImoveisSlugRoute
+  AdminIndexRoute: typeof AdminIndexRoute
   ImoveisIndexRoute: typeof ImoveisIndexRoute
 }
 
@@ -83,6 +128,27 @@ declare module '@tanstack/react-router' {
       path: '/contato'
       fullPath: '/contato'
       preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/_auth': {
+      id: '/admin/_auth'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminAuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/imoveis/': {
@@ -105,7 +171,10 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContatoRoute: ContatoRoute,
+  AdminAuthRoute: AdminAuthRoute,
+  AdminLoginRoute: AdminLoginRoute,
   ImoveisSlugRoute: ImoveisSlugRoute,
+  AdminIndexRoute: AdminIndexRoute,
   ImoveisIndexRoute: ImoveisIndexRoute,
 }
 export const routeTree = rootRouteImport

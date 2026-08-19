@@ -67,8 +67,8 @@ function defaultsFrom(property?: Property): PropertyFormInput {
 }
 
 export function PropertyForm({ property, submitLabel, onSubmit, isSubmitting }: Props) {
-  const form = useForm<PropertyFormInput, unknown, PropertyFormValues>({
-    resolver: zodResolver(propertyFormSchema),
+  const form = useForm<PropertyFormInput>({
+    resolver: zodResolver(propertyFormSchema) as never,
     defaultValues: defaultsFrom(property),
   });
 
@@ -77,7 +77,7 @@ export function PropertyForm({ property, submitLabel, onSubmit, isSubmitting }: 
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit((raw) => onSubmit(propertyFormSchema.parse(raw)))} className="space-y-8">
         <section className="space-y-6 rounded-2xl border border-border bg-card p-6">
           <h2 className="font-display text-lg">Informações principais</h2>
 

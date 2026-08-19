@@ -15,7 +15,7 @@ const LINKS = [
   { to: "/admin/configuracoes", label: "Configurações", icon: Settings },
 ] as const;
 
-function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
+function NavLinks({ onNavigate }: { onNavigate?: (() => void) | undefined }) {
   return (
     <nav className="flex flex-col gap-1" aria-label="Navegação administrativa">
       {LINKS.map((link) => (
