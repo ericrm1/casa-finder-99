@@ -23,7 +23,7 @@ import {
 import { citiesQuery, publicPropertiesQuery } from "@/features/properties/queries";
 import { agency } from "@/lib/agency";
 
-export const Route = createFileRoute("/imoveis")({
+export const Route = createFileRoute("/imoveis/")({
   validateSearch: propertyFiltersSchema,
   loaderDeps: ({ search }) => ({ search }),
   loader: async ({ context, deps }) => {
